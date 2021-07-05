@@ -14,4 +14,12 @@ class PostController extends Controller
 
         return view('posts.index' , $data);
     }
+
+
+    public function show(Post $post)
+    {
+        return view("posts.show", [
+            "post" => $post
+        ]);
+    }
 }
