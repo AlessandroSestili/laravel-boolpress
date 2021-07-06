@@ -7,7 +7,7 @@
     {{ $post->content }}
     <br>
     {{ $post->slug }}
+    <br>
+    <br>
 
 @endforeach
-
-@dump($posts)

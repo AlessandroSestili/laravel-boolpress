@@ -16,17 +16,21 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/' , 'HomeController@index');
 
+// Rotte visibili a tutti i tipi di utenti
 Route::get('/posts' , 'PostController@index')->name('posts.name');
+Route::get('/posts/{post}' , 'PostController@show');
+
 
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Rotte visibili ad utenti loggati
 Route::prefix('admin')
     ->namespace('Admin')
     ->middleware('auth')
-    ->name('admin. ')
+    ->name('admin.')
     ->group(function() {
         Route::get('/' , 'HomeController@index')->name('home');
 

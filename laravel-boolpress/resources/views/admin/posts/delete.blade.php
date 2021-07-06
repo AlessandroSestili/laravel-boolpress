@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,19 +8,20 @@
 </head>
 <body>
 
-    <form action="{{ route('admin.posts.store') }}" method="POST">
+    <form action="{{ route("admin.posts.delete" ,  $post ->id) }}" method="POST">
         @csrf
+        @method('DELETE')
 
         <label for="title">Title: </label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" value="{{ $post->title }}">
 
         <label for="content">Content: </label>
-        <input type="text" name="content" id="content">
+        <input type="text" name="content" id="content" value="{{ $post->content }}">
 
         <label for="slug">Slug: </label>
-        <input type="text" name="slug" id="slug">
+        <input type="text" name="slug" id="slug" value="{{ $post->slug }}">
 
-        <input type="submit" value="Invia">
+        <input type="submit" value="Elimina">
     </form>
 </body>
 </html>
