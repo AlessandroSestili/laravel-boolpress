@@ -127,6 +127,6 @@ class PostController extends Controller
 
         $post->delete();
 
-        return view("admin.posts.index");
+        return redirect()->route("admin.posts.index"); 
     }
 }

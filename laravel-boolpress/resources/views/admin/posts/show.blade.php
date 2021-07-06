@@ -9,13 +9,20 @@
 </head>
 <body>
     
-{{-- <a href="{{ route("comics.edit" , $comic->id) }}">
-    Modifica Fumetto
+<a href="{{ route("admin.posts.edit" , $post->id) }}">
+    Modifica Post
 </a>
 <br>
-<a href="{{ route("comics.delete" , $comic->id) }}">
-    Elimina Fumetto
+{{-- <a href="{{ route("admin.posts.delete" , $post->id) }}">
+    Elimina Post
 </a> --}}
+
+<form action="{{ route("admin.posts.destroy" , $post->id) }}" method="POST">
+    @csrf
+    @method('DELETE')
+
+    <input type="submit" value="Elimina">
+</form>
 
 <ul>
     <li>ID: {{$post->id}}</li>
