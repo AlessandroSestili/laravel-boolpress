@@ -29,6 +29,9 @@
     <li>Title: {{$post->title}}</li>
     <li>Content: {{$post->content}}</li>
     <li>Slug: {{$post->slug}}</li>
+    <li>Utente: {{$post->user->name}} ({{$post->user->email}})</li>
+
+
 </ul>
 
 </body>

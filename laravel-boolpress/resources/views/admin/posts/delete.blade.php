@@ -21,6 +21,8 @@
         <label for="slug">Slug: </label>
         <input type="text" name="slug" id="slug" value="{{ $post->slug }}">
 
+        </select>
+
         <input type="submit" value="Elimina">
     </form>
 </body>

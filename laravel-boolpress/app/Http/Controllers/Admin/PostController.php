@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -29,7 +31,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("admin.posts.create");
+        $categories = Category::all();
+
+        return view("admin.posts.create" , ["categories" => $categories]);
     }
 
     /**
@@ -38,13 +42,13 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , Auth $authUser)
     {
         // Valida i dati in ingresso dal Form in "create"
         $request->validate([
             "title" => "required|max:255",
             "content" => "required",
-            "slug" => "required"
+            "slug" => "required",
         ]);
 
         // Recupera tutti i dati che ha inserito l'utente dal "request"
@@ -56,6 +60,8 @@ class PostController extends Controller
         // Riempie i dati del Model Post
         $newPost->fill($newPostsData);
         // Salva i dati nel database
+
+        $newPost->user_id= $request->user()->id;
         $newPost->save();
 
         return redirect()->route("admin.posts.index"); 
@@ -67,9 +73,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
 
         return view("admin.posts.show" , compact("post"));
     }
@@ -84,8 +90,10 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
+        $categories = Category::all();
+
         return view("admin.posts.edit" , [
-            "post" => $post
+            "post" => $post , "categories" => $categories
         ]);
     }
 

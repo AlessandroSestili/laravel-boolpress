@@ -21,6 +21,16 @@
         <label for="slug">Slug: </label>
         <input type="text" name="slug" id="slug">
 
+        <label for="category">Category: </label>
+        <select name="category_id" id="category">
+            <option value="">-- seleziona categoria --</option>
+
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}"> {{ $category->name }} </option>
+            @endforeach
+
+        </select>
+
         <input type="submit" value="Invia">
     </form>
 </body>

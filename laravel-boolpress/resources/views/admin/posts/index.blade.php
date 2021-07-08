@@ -8,6 +8,8 @@
     <br>
     {{ $post->slug }}
     <br>
+    {{ $post->category->name }}
+    <br>
     <br>
 
 @endforeach
