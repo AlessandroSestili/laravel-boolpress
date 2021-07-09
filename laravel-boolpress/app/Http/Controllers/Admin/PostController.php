@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,10 @@ class PostController extends Controller
     {
         $categories = Category::all();
 
-        return view("admin.posts.create" , ["categories" => $categories]);
+        $tags = Tag::all();
+
+        return view("admin.posts.create" , ["categories" => $categories,
+                                            "tags" => $tags]);
     }
 
     /**
@@ -49,6 +53,7 @@ class PostController extends Controller
             "title" => "required|max:255",
             "content" => "required",
             "slug" => "required",
+            //"tags" => "exists:tags,id"
         ]);
 
         // Recupera tutti i dati che ha inserito l'utente dal "request"
@@ -62,7 +67,13 @@ class PostController extends Controller
         // Salva i dati nel database
 
         $newPost->user_id= $request->user()->id;
+
+        
+        
         $newPost->save();
+        
+        $newPost->tags()->detach();
+        $newPost->tags()->attach($newPostsData["tags"]);
 
         return redirect()->route("admin.posts.index"); 
     }
@@ -76,8 +87,12 @@ class PostController extends Controller
     public function show(Post $post)
     {
         // $post = Post::findOrFail($id);
+        // $tags = Tag::all();
 
-        return view("admin.posts.show" , compact("post"));
+        return view("admin.posts.show" , [
+            "post" => $post,
+            // "tags" => $tags
+        ]);
     }
 
     /**
@@ -92,8 +107,10 @@ class PostController extends Controller
 
         $categories = Category::all();
 
+        $tags = Tag::all();
+
         return view("admin.posts.edit" , [
-            "post" => $post , "categories" => $categories
+            "post" => $post , "categories" => $categories , "tags" => $tags
         ]);
     }
 
@@ -110,14 +127,20 @@ class PostController extends Controller
         $request->validate([
             "title" => "required|max:255",
             "content" => "required",
-            "slug" => "required"
+            "slug" => "required",
+            "tags" => "exists:tags,id"
         ]);
 
         // Recupera tutti i dati che ha inserito l'utente dal "request"
         $newPostData = $request->all();
 
         $post = Post::findOrFail($id);
+
+        
         $post->update($newPostData);
+        
+        $post->tags()->detach();
+        $post->tags()->attach($newPostData["tags"]);
 
         return redirect()->route("admin.posts.index"); 
     }

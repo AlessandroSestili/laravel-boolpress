@@ -25,11 +25,17 @@
 </form>
 
 <ul>
-    <li>ID: {{$post->id}}</li>
-    <li>Title: {{$post->title}}</li>
-    <li>Content: {{$post->content}}</li>
-    <li>Slug: {{$post->slug}}</li>
     <li>Utente: {{$post->user->name}} ({{$post->user->email}})</li>
+    <li>ID: {{$post->id}}</li>
+    <br>
+    <li>Title: {{$post->title}}</li>
+    <li>Slug: {{$post->slug}}</li>
+    <li>Content: {{$post->content}}</li>
+    <li>Categoria: {{ $post->category->name }}</li>
+    <li>Tag:    @foreach($post->tags as $tag)
+                    {{ $tag->name }}
+                @endforeach
+    </li>
 
 
 </ul>

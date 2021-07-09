@@ -10,6 +10,11 @@
     <br>
     {{ $post->category->name }}
     <br>
+    {{-- {{ $post->tag }} --}}
+    @foreach($post->tags as $tag)
+        {{$tag->name}}
+    @endforeach
+    <br>
     <br>
 
 @endforeach

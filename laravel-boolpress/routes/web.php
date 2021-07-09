@@ -33,6 +33,7 @@ Route::prefix('admin')
     ->name('admin.')
     ->group(function() {
         Route::get('/' , 'HomeController@index')->name('home');
+        Route::get('/tags' , 'TagController@index')->name('tags.index');
 
         Route::resource("/posts" , "PostController");
     });
