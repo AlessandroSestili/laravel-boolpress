@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Questa rotta avrà API/ prima della rotta da noi scritta 
-Route::get("Coltore");
+Route::get("/posts" , "Api\postController@index");
