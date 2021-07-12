@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Questa rotta avrà API/ prima della rotta da noi scritta 
+Route::get("Coltore");
